@@ -8,20 +8,6 @@ function App() {
     return (
         <Router>
             <div className="App">
-                {/* link demo */}
-                <div>
-                    {publicRoutes.map((route, index) => {
-                        const path = route.path;
-                        let aContent = path.substring(1);
-                        if (aContent === '') aContent = 'Home';
-                        return (
-                            <a key={index} href={path} style={{ marginLeft: '12px' }}>
-                                {aContent}
-                            </a>
-                        );
-                    })}
-                </div>
-
                 {/* routes */}
                 <Routes>
                     {publicRoutes.map((route, index) => {
@@ -48,6 +34,20 @@ function App() {
                         );
                     })}
                 </Routes>
+
+                {/* link demo */}
+                <div style={{ border: '1px solid #333' }}>
+                    {publicRoutes.map((route, index) => {
+                        const path = route.path;
+                        let aContent = path.substring(1);
+                        if (aContent === '') aContent = 'Home';
+                        return (
+                            <a key={index} href={path} style={{ marginLeft: '12px' }}>
+                                {aContent}
+                            </a>
+                        );
+                    })}
+                </div>
             </div>
         </Router>
     );
