@@ -1,0 +1,25 @@
+// menu wrapper
+.menu-list {
+    width: 224px;
+}
+.p-bt8px {
+    padding-bottom: 8px;
+}
+// Menu item
+.menu-list .menu-item {
+    margin-left: 0;
+    width: 100%;
+    justify-content: start;
+    border-radius: 0;
+    padding: 11px 16px;
+
+    span {
+        color: var(--text-color);
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}

@@ -101,4 +101,11 @@
 // actions
 .actions {
     display: flex;
+    align-items: center;
+}
+.more-btn {
+    padding: 6px 10px;
+    margin-left: 10px;
+    background-color: transparent;
+    cursor: pointer;
 }
