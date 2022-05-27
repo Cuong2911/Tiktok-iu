@@ -62,9 +62,9 @@ const Button = ({
 
     return (
         <Component className={classes} {...props}>
-            <span className={cx('left-icon')}>{leftIcon}</span>
+            {leftIcon && <span className={cx('left-icon')}>{leftIcon}</span>}
             <span>{children}</span>
-            <span className={cx('right-icon')}>{rightIcon}</span>
+            {rightIcon && <span className={cx('right-icon')}>{rightIcon}</span>}
         </Component>
     );
 };

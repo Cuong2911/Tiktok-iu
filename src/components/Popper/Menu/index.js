@@ -9,16 +9,29 @@ import Header from './Header';
 
 const cx = className.bind(styles);
 
-const Menu = ({ children, items = [] }) => {
+const defaultFunc = () => {};
+
+const Menu = ({ children, items = [], onChange = defaultFunc }) => {
     const [history, setHistory] = useState([{ data: items }]);
 
     const current = history[history.length - 1];
 
-    console.log(current);
-
     const renderItems = () => {
         return current.data.map((item, index) => {
-            return <MenuItem key={index} data={item} />;
+            const isParent = !!item.children;
+            return (
+                <MenuItem
+                    key={index}
+                    data={item}
+                    onClick={() => {
+                        if (isParent) {
+                            setHistory((prev) => [...prev, item.children]);
+                        } else {
+                            onChange(item);
+                        }
+                    }}
+                />
+            );
         });
     };
 
@@ -31,7 +44,14 @@ const Menu = ({ children, items = [] }) => {
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <PopperWraper className={cx('p-bt8px')}>
-                        <Header title="language" />
+                        {history.length > 1 && (
+                            <Header
+                                title="language"
+                                onBack={() => {
+                                    setHistory((prev) => prev.slice(0, prev.length - 1));
+                                }}
+                            />
+                        )}
                         {renderItems()}
                     </PopperWraper>
                 </div>

@@ -67,6 +67,10 @@ const Header = () => {
         };
     }, []);
 
+    const handleMenuChange = (menuItem) => {
+        console.log(menuItem);
+    };
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -110,7 +114,7 @@ const Header = () => {
                     <Button primary>Log in</Button>
 
                     <div>
-                        <Menu items={MENU_ITEMS}>
+                        <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </button>
