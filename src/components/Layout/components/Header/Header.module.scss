@@ -10,11 +10,12 @@
     justify-content: center;
 }
 .inner {
-    height: 100%;
-    width: var(--default-layout-width);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
+    width: var(--default-layout-width);
+    padding: 0 24px;
 }
 // logo
 .logo {

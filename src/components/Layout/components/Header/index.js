@@ -25,6 +25,23 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
         title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    code: 'En',
+                    title: 'English',
+                },
+                {
+                    code: 'Vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    code: 'Fr',
+                    title: 'France',
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -55,7 +72,6 @@ const Header = () => {
             <div className={cx('inner')}>
                 {/* logo */}
                 <img src={images.logo} alt="Tiktok" />
-
                 {/* search */}
                 <div>
                     <Tippy
@@ -86,7 +102,6 @@ const Header = () => {
                         </div>
                     </Tippy>
                 </div>
-
                 {/* action */}
                 <div className={cx('actions')}>
                     <Button outline to="/upload">
