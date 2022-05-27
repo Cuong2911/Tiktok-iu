@@ -110,3 +110,20 @@
     background-color: transparent;
     cursor: pointer;
 }
+.actions .actions-btn-user {
+    min-width: 32px;
+    height: 32px;
+    padding: 0;
+
+    span {
+        font-size: 2rem;
+    }
+}
+.user-avatar {
+    height: 32px;
+    width: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 24px;
+    cursor: pointer;
+}

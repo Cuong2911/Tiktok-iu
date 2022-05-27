@@ -19,6 +19,7 @@ const Button = ({
     small = false,
     medium = true,
     large = false,
+    square = false,
     // props
     className,
     leftIcon,
@@ -57,6 +58,7 @@ const Button = ({
         small,
         medium,
         large,
+        square,
         [className]: className,
     });
 
