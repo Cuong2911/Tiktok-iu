@@ -25,6 +25,8 @@ import { Wrapper as PopperWraper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+import { InboxIcon, MessageIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -64,7 +66,7 @@ const MENU_ITEMS = [
 const Header = () => {
     const [searchResult, setSearchResearchResult] = useState([]);
 
-    const currentUser = false;
+    const currentUser = true;
 
     useEffect(() => {
         const timerId = setTimeout(() => {
@@ -152,17 +154,17 @@ const Header = () => {
                         <>
                             <Button to="/message" className={cx('actions-btn-user')}>
                                 <Tippy content="Message" placement="bottom">
-                                    <span>
-                                        <FontAwesomeIcon icon={faPaperPlane} />
-                                    </span>
+                                    <>
+                                        <MessageIcon />
+                                    </>
                                 </Tippy>
                             </Button>
 
                             <Button className={cx('actions-btn-user')}>
                                 <Tippy content="Inbox" placement="bottom">
-                                    <span>
-                                        <FontAwesomeIcon icon={faMessage} />
-                                    </span>
+                                    <>
+                                        <InboxIcon />
+                                    </>
                                 </Tippy>
                             </Button>
                         </>
@@ -175,9 +177,10 @@ const Header = () => {
                         <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                             {currentUser ? (
                                 // eslint-disable-next-line jsx-a11y/alt-text
-                                <img
+                                <Image
                                     className={cx('user-avatar')}
                                     src="https://1.bp.blogspot.com/-Vw30ZajH6Ow/X7EArE3z2jI/AAAAAAAAk_4/VPcABJelXkkTibD2i3W0afsaPvlEiulGACNcBGAsYHQ/s0/taoanhdep-hinh-nen-among-us.jpg"
+                                    fallback="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
                                 />
                             ) : (
                                 <button className={cx('more-btn')}>
