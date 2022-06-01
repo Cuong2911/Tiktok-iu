@@ -8,6 +8,7 @@ import { Wrapper as PopperWraper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import styles from './Search.module.scss';
 import Button from '~/components/Button';
+import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
@@ -17,15 +18,18 @@ const Search = () => {
     const [showResults, setShowResults] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const debounced = useDebounce(searchValue, 500);
+
     const inputRef = useRef();
+
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResearchResult([]);
             return;
         }
         setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
                 setSearchResearchResult(res.data);
@@ -35,7 +39,7 @@ const Search = () => {
                 setLoading(false);
             });
         return () => {};
-    }, [searchValue]);
+    }, [debounced]);
 
     const handleClearSearchValue = () => {
         setSearchValue('');
@@ -43,7 +47,10 @@ const Search = () => {
     };
 
     const handleHideResult = () => {
-        setShowResults(!showResults);
+        setShowResults(false);
+    };
+    const handleShowResult = () => {
+        setShowResults(true);
     };
     return (
         <div>
@@ -74,7 +81,7 @@ const Search = () => {
                         value={searchValue}
                         placeholder="Search accounts and video"
                         spellCheck="false"
-                        onFocus={handleHideResult}
+                        onFocus={handleShowResult}
                     />
                     {!!searchValue && !loading && (
                         <button className={cx('clear')} onClick={handleClearSearchValue}>
