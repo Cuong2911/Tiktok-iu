@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faCircleXmark,
-    faSpinner,
-    faMagnifyingGlass,
     faEllipsisVertical,
     faEarthAsia,
     faCircleQuestion,
@@ -14,19 +10,16 @@ import {
     faUser,
     faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
-import { faMessage, faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import Tippy from '@tippyjs/react';
-import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import { Wrapper as PopperWraper } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import { InboxIcon, MessageIcon } from '~/components/Icons';
 import Image from '~/components/Image';
+import Search from '~/components/Layout/components/Search';
 
 const cx = classNames.bind(styles);
 
@@ -64,19 +57,7 @@ const MENU_ITEMS = [
 ];
 
 const Header = () => {
-    const [searchResult, setSearchResearchResult] = useState([]);
-
     const currentUser = true;
-
-    useEffect(() => {
-        const timerId = setTimeout(() => {
-            setSearchResearchResult([]);
-        }, 1000);
-
-        return () => {
-            clearTimeout(timerId);
-        };
-    }, []);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
@@ -111,39 +92,11 @@ const Header = () => {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 {/* logo */}
-                <img src={images.logo} alt="Tiktok" />
+                <Button to="/">
+                    <img src={images.logo} alt="Tiktok" />
+                </Button>
                 {/* search */}
-                <div>
-                    <HeadlessTippy
-                        offset={[0, 8]}
-                        // visible={searchResult.length > 0}
-                        interactive="true"
-                        render={(attrs) => (
-                            <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                                <PopperWraper>
-                                    <h4 className={cx('search-title')}>Accout</h4>
-                                    <AccountItem />
-                                    <AccountItem />
-                                    <AccountItem />
-                                    <AccountItem />
-                                </PopperWraper>
-                            </div>
-                        )}
-                        placement="bottom"
-                    >
-                        <div className={cx('search')}>
-                            <input placeholder="Search accounts and video" spellCheck="false" />
-                            <button className={cx('clear')}>
-                                <FontAwesomeIcon icon={faCircleXmark} />
-                            </button>
-                            <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-                            <span></span>
-                            <button className={cx('search-btn')}>
-                                <FontAwesomeIcon className={cx('')} icon={faMagnifyingGlass} />
-                            </button>
-                        </div>
-                    </HeadlessTippy>
-                </div>
+                <Search />
                 {/* action */}
 
                 <div className={cx('actions')}>
@@ -152,21 +105,19 @@ const Header = () => {
                     </Button>
                     {currentUser ? (
                         <>
-                            <Button to="/message" className={cx('actions-btn-user')}>
-                                <Tippy content="Message" placement="bottom">
-                                    <>
-                                        <MessageIcon />
-                                    </>
-                                </Tippy>
-                            </Button>
+                            <Tippy content="Message" placement="bottom">
+                                <Button to="/message" className={cx('actions-btn-user')}>
+                                    <MessageIcon />
+                                    <span className={cx('actions-sub-noti')}>24</span>
+                                </Button>
+                            </Tippy>
 
-                            <Button className={cx('actions-btn-user')}>
-                                <Tippy content="Inbox" placement="bottom">
-                                    <>
-                                        <InboxIcon />
-                                    </>
-                                </Tippy>
-                            </Button>
+                            <Tippy content="Inbox" placement="bottom">
+                                <Button className={cx('actions-btn-user')}>
+                                    <InboxIcon />
+                                    <span className={cx('actions-sub-noti')}>24</span>
+                                </Button>
+                            </Tippy>
                         </>
                     ) : (
                         <>
