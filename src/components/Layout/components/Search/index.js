@@ -7,25 +7,35 @@ import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-s
 import { Wrapper as PopperWraper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import styles from './Search.module.scss';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
 const Search = () => {
-    const [searchResult, setSearchResearchResult] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const [searchResult, setSearchResearchResult] = useState([]);
     const [showResults, setShowResults] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
-
     useEffect(() => {
-        const timerId = setTimeout(() => {
-            setSearchResearchResult([1]);
-        }, 2000);
+        if (!searchValue.trim()) {
+            setSearchResearchResult([]);
+            return;
+        }
+        setLoading(true);
 
-        return () => {
-            clearTimeout(timerId);
-        };
-    }, []);
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((res) => res.json())
+            .then((res) => {
+                setSearchResearchResult(res.data);
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+            });
+        return () => {};
+    }, [searchValue]);
 
     const handleClearSearchValue = () => {
         setSearchValue('');
@@ -45,10 +55,10 @@ const Search = () => {
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWraper>
                             <h4 className={cx('search-title')}>Accout</h4>
-                            <AccountItem />
-                            <AccountItem />
-                            <AccountItem />
-                            <AccountItem />
+                            {searchResult.map((result) => {
+                                return <AccountItem key={result.id} data={result} />;
+                            })}
+                            <Button className={cx('end-search')}>All results found of '{searchValue}'</Button>
                         </PopperWraper>
                     </div>
                 )}
@@ -66,12 +76,12 @@ const Search = () => {
                         spellCheck="false"
                         onFocus={handleHideResult}
                     />
-                    {searchValue && (
+                    {!!searchValue && !loading && (
                         <button className={cx('clear')} onClick={handleClearSearchValue}>
                             <FontAwesomeIcon icon={faCircleXmark} />
                         </button>
                     )}
-                    {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner} /> */}
+                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
                     <span></span>
                     <button className={cx('search-btn')}>
                         <FontAwesomeIcon className={cx('')} icon={faMagnifyingGlass} />
