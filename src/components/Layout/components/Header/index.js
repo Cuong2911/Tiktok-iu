@@ -43,6 +43,42 @@ const MENU_ITEMS = [
                     code: 'Fr',
                     title: 'France',
                 },
+                {
+                    code: 'En',
+                    title: 'English',
+                },
+                {
+                    code: 'Vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    code: 'Fr',
+                    title: 'France',
+                },
+                {
+                    code: 'En',
+                    title: 'English',
+                },
+                {
+                    code: 'Vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    code: 'Fr',
+                    title: 'France',
+                },
+                {
+                    code: 'En',
+                    title: 'English',
+                },
+                {
+                    code: 'Vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    code: 'Fr',
+                    title: 'France',
+                },
             ],
         },
     },
