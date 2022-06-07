@@ -19,8 +19,8 @@ import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import { InboxIcon, MessageIcon } from '~/components/Icons';
 import Image from '~/components/Image';
-import Search from '~/components/Layout/components/Search';
-import routesConfig from '~/config/routes';
+import Search from '~/Layout/components/Search';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -129,7 +129,7 @@ const Header = () => {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 {/* logo */}
-                <Button to={routesConfig.home}>
+                <Button to={config.routes.home}>
                     <img src={images.logo} alt="Tiktok" />
                 </Button>
                 {/* search */}
@@ -137,7 +137,7 @@ const Header = () => {
                 {/* action */}
 
                 <div className={cx('actions')}>
-                    <Button outline to={routesConfig.upload}>
+                    <Button outline to={config.routes.upload}>
                         Upload
                     </Button>
                     {currentUser ? (
